@@ -1,0 +1,7 @@
+min delay = 1 mks
+data1:
+dist,mm E_amp,mV
+
+data2: 
+t_d,mks dU1,mV  dU2,mV
+
