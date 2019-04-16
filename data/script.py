@@ -14,30 +14,30 @@ plt.rc('text.latex', preamble=r'\usepackage[russian]{babel}')
 # delta = np.array(du2)/100
 
 # data1 = np.loadtxt('data/data1.tsv',delimiter='\t')
-data1 = np.loadtxt('data/dat1.tsv')
-size = data1.shape
-U, x = [],[]
+# data1 = np.loadtxt('data/data1.tsv')
+# size = data1.shape
+# U, x = [],[]
 
-for i in range(0,size[0]):
-    x.append(data1[i][0])
-    U.append(data1[i][1])
+# for i in range(0,size[0]):
+#     x.append(data1[i][0])
+#     U.append(data1[i][1])
 
 # U = np.array(U)
-# print(U)
+# # print(U)
 # x = np.array(x)
 # x = x - np.amin(x)
 # ln_U =  np.log(U)
-# print(ln_U)
+# # print(ln_U)
 
 
 
-
-# pp = np.polyfit(x,ln_U,1)
+# pp,residuals, rank, singular_values, rcond  = np.polyfit(x,ln_U,1,full = True)
 # print('tan(theta) = ',pp[0])
 # print('intercept = ',pp[1])
 # print('lifetime',1/pp[0]*( ln_U[0] -1-pp[1] ))
 # pf = np.poly1d(pp)
-
+# r_sq = residuals/np.mean(ln_U)
+# print('err,% ',r_sq*100)
 # plt.figure(0)
 
 # plt.plot(x,pf(x),'k--',lw = 1)
@@ -66,8 +66,9 @@ du = du1/du2
 lndU = np.log(du2)
 
 pp2 = np.polyfit(t,lndU,1)
-a,b,c,d,e = np.polyfit(t,lndU,1,full = True)
-print(a,b,c,d,e)
+a,residuals, rank, singular_values, rcond = np.polyfit(t,lndU,1,full = True)
+r_sq = residuals/np.mean(lndU)
+print('err,% ',r_sq*100)
 
 
 print('tan(theta) = ',pp2[0])
@@ -83,6 +84,5 @@ plt.grid(which='minor', linestyle='-',color = 'lightgrey')
 plt.xlabel('$t, mks$')
 plt.ylabel('$\ln (\Delta U_2)$')
 plt.minorticks_on()
-# plt.plot([0,25],[2.71,2.71],'-')
-plt.savefig('graphs/task2.png',dpi=500)
+# plt.savefig('graphs/task2.png',dpi=500)
 plt.show()

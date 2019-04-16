@@ -1,0 +1,97 @@
+\documentclass[tikz,border=2pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{3d}
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage[english, russian]{babel}
+\usetikzlibrary
+    {
+        decorations.pathmorphing,
+        decorations.pathreplacing,
+        decorations.markings,
+        shapes.misc,
+        patterns,
+        calc,
+        scopes,
+        arrows,
+        fadings,
+        through,
+        shapes.misc,
+        arrows.meta,
+        3d,
+        quotes,
+        angles,
+        babel
+    }
+\newcommand\irregularcircle[2]{% radius, irregularity
+  let \n1 = {(#1)+rand*(#2)} in
+  +(0:\n1)
+  \foreach \a in {10,20,...,350}{
+    let \n1 = {(#1)+rand*(#2)} in
+    -- +(\a:\n1)
+  } -- cycle
+}
+
+\newcommand\irregular[2]{% radius, irregularity
+  let \n1 = {(#1)+rand*(#2)} in
+   (0:\n1)
+  \foreach \a in {10,20,...,350}{
+    let \n1 = {(#1)+rand*(#2)} in
+    (\a:\n1)
+    % -- +(\a:\n1)
+  }% -- cycle
+}
+
+
+\begin{document}
+\begin{tikzpicture}[scale=1.5,
+    %Option for nice arrows
+    >=stealth, %
+    inner sep=0pt, outer sep=2pt,%
+    axis/.style={thick,->},
+    wave/.style={thick,color=#1,smooth},
+    polaroid/.style={fill=black!60!white, opacity=0.3},
+    interface1/.style={draw=gray!60,
+        % The border decoration is a path replacing decorator. 
+        % For the interface style we want to draw the original path.
+        % The postaction option is therefore used to ensure that the
+        % border decoration is drawn *after* the original path.
+        postaction={draw=gray!60,decorate,decoration={border,angle=-135,
+                    amplitude=0.2cm,segment length=0.5mm}}}, 
+]
+    \draw[very thick] (0,0) node[left] {} -- ++(3,0) node[right] {$W_v$};
+    \draw[very thick] (0,2) node[left] {} -- ++(3,0) node[right] {$W_c$};
+
+    \draw[] (2,1) node[left,align=center] {Глубокий\\уровень} -- ++(1,0) ;
+    \draw[] (0,0.33) node[left,align=center] {Мелкий\\уровень} -- ++(1,0) ;
+    \draw[] (0,2-0.33) node[left,align=center] {Мелкий\\уровень} -- ++(1,0) ;
+    % \foreach \dy in {0.1,0.2,...,0.6}{
+    %     \draw[] (0,2+\dy) -- ++(2,0);
+    %     \draw[] (0,0-\dy) -- ++(2,0);
+    % }
+
+    % \draw[-latex] (0.25,-0.3) -- node[sloped,above] {Генерация} (0.25,2.3);
+    \draw[-latex] (2.33,0) -- (2.33,1);
+    \draw[-latex] (2.66,1) -- (2.66,0);
+    \draw[-latex] (2.66,2) -- (2.66,1);
+    \draw[-latex] (2.33,1) -- (2.33,2);
+
+    \draw[latex-] (0.25,0) -- ++(0,0.33);
+    \draw[-latex] (0.75,0) -- ++(0,0.33);
+
+
+    \draw[latex-] (0.25,2) -- ++(0,-0.33);
+    \draw[-latex] (0.75,2) -- ++(0,-0.33);
+
+    \draw[latex-, densely dashed] (0.4,0.33) -- ++(0,2-0.33-0.33);
+    \draw[-latex, densely dashed] (0.6,0.33) -- ++(0,2-0.33-0.33);
+    % \draw[latex-] (2-0.25,-0.3) -- node[sloped,above] {Рекомбинация} (2-0.25,2.3);
+
+    % \draw (1,2.6) node[above=0.2em,align=center] {Разрешенные состояния \\ в зоне проводимости};
+    % \draw (1,-0.6) node[below=0.2em,align=center] {Разрешенные состояния \\ в валентной зоне};
+
+
+\end{tikzpicture}
+\end{document}

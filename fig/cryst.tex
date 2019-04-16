@@ -1,0 +1,167 @@
+\documentclass[tikz,border=2pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{3d}
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage[english, russian]{babel}
+\usetikzlibrary
+    {
+        decorations.pathmorphing,
+        decorations.pathreplacing,
+        decorations.markings,
+        shapes.misc,
+        patterns,
+        calc,
+        scopes,
+        arrows,
+        fadings,
+        through,
+        shapes.misc,
+        arrows.meta,
+        3d,
+        quotes,
+        angles,
+        babel
+    }
+\newcommand\irregularcircle[2]{% radius, irregularity
+  let \n1 = {(#1)+rand*(#2)} in
+  +(0:\n1)
+  \foreach \a in {10,20,...,350}{
+    let \n1 = {(#1)+rand*(#2)} in
+    -- +(\a:\n1)
+  } -- cycle
+}
+
+\newcommand\irregular[2]{% radius, irregularity
+  let \n1 = {(#1)+rand*(#2)} in
+   (0:\n1)
+  \foreach \a in {10,20,...,350}{
+    let \n1 = {(#1)+rand*(#2)} in
+    (\a:\n1)
+    % -- +(\a:\n1)
+  }% -- cycle
+}
+
+
+\begin{document}
+\begin{tikzpicture}[scale=1.5,
+    %Option for nice arrows
+    >=stealth, %
+    inner sep=0pt, outer sep=2pt,%
+    axis/.style={thick,->},
+    wave/.style={thick,color=#1,smooth},
+    polaroid/.style={fill=black!60!white, opacity=0.3},
+    interface1/.style={draw=gray!60,
+        % The border decoration is a path replacing decorator. 
+        % For the interface style we want to draw the original path.
+        % The postaction option is therefore used to ensure that the
+        % border decoration is drawn *after* the original path.
+        postaction={draw=gray!60,decorate,decoration={border,angle=-135,
+                    amplitude=0.2cm,segment length=0.5mm}}}, 
+]
+    % Colors
+    \colorlet{darkgreen}{green!50!black}
+    \colorlet{lightgreen}{green!80!black}
+    \colorlet{darkred}{red!50!black}
+    \colorlet{lightred}{red!80!black}
+
+
+
+\pgfdeclarepatternformonly{dots2}{\pgfqpoint{-1pt}{-1pt}}{\pgfqpoint{2pt}{2pt}}{\pgfqpoint{2pt}{2pt}}%
+{
+    \pgfpathcircle{\pgfqpoint{0pt}{0pt}}{.35pt}
+    \pgfpathcircle{\pgfqpoint{1pt}{1pt}}{.35pt}
+    \pgfusepath{fill}
+}
+
+\newcommand{\oblako}[3]{
+\begin{scope}[ xshift=#1cm, yshift=#2cm,rotate around={#3:(0,0)}]
+    % \draw[draw=none] (0,0) coordinate (0) circle (0.25cm);
+    % \draw[draw=none] (0,1) coordinate (1) circle (0.25cm);
+    \xdef\phi{35}
+    \coordinate (0) at (0,0);
+    \coordinate (1) at (0,1);
+    \coordinate (A) at ($(0)+(90+\phi:0.25)$ );
+    % \path[transform shape] ($(0)+(90+\phi:0.25)$ ) coordinate (A);
+    \coordinate (B) at ($(1)+(-90-\phi:0.25)$ );
+    \coordinate (A') at ($(0)+(90-\phi:0.25)$);
+    \coordinate (B') at ($(1)+(-90+\phi:0.25)$);
+
+    \draw[pattern=dots2,transform shape, pattern color=gray, draw=none] (A) to[out={90+\phi},in=-{\phi-90}] (B) --  (B') to[in={90-\phi},out=-{\phi-90+2*\phi}] (A') -- cycle;
+
+    \draw[fill=black] ($(0,0.5)+(0.1,0)$) circle (1.2pt);
+    \draw[fill=black] ($(0,0.5)-(0.1,0)$) circle (1.2pt);
+\end{scope}}
+
+
+    \foreach \x in {0,1,2}{
+    \foreach \y in {0,1,2}{
+        \oblako{\x}{\y}{0}
+        \oblako{\x}{\y}{-90}
+    }
+    }
+
+    \foreach \x in {0,1,2}{
+    \foreach \y in {0}{
+        \oblako{\x}{\y}{-180}
+    }
+    }
+    \foreach \y in {0,1,2}{
+    \foreach \x in {0}{
+        \oblako{\x}{\y}{90}
+    }
+    }
+
+    \foreach \x in {0,1,2}{
+    \foreach \y in {0,1,2}{
+        \draw[fill=white] (\x,\y) circle (0.25cm) node {Si};
+    }
+    }
+
+\draw[fill=white] ($(1,2)-(-0.5,0.1)$) circle (1.2pt) coordinate (F1);
+\draw[fill=red] ($(0.5,1.5)$) circle (1.2pt) coordinate (F2);
+
+\draw[fill=white] ($(2,0)+(0.1,0.5)$) circle (1.2pt) coordinate (FF1);
+\draw[fill=red] ($(3,-0.5)$) circle (1.2pt) coordinate (FF2);
+
+\draw[thick,-latex] (F1) to[out={-70},in={-40}] node[pos=0.26, below=0.4em] {$12$} (F2);
+
+\draw[thick,-latex] (FF2) to[out={70},in={0}] node[pos=0.5, above=0.5em] {$21$} (FF1);
+
+\draw[fill=white] ($(1,2)-(-0.5,0.1)$) circle (1.2pt) coordinate (F1);
+\draw[fill=red] ($(0.5,1.5)$) circle (1.2pt) coordinate (F2);
+
+\draw[fill=white] ($(2,0)+(0.1,0.5)$) circle (1.2pt) coordinate (FF1);
+\draw[fill=red] ($(3,-0.5)$) circle (1.2pt) coordinate (FF2);
+
+\draw[-latex] (-1,-1.2) node [right,align=center] {Электронные\\ облака} to[out={180},in={180}](-.75,0);
+
+\draw[-latex] (-1,-1.2)  to[out={180},in={180}](-.75,1);
+\draw[-latex] (-1,-1.2)  to[out={180},in={180}](-.75,2);
+
+\draw[-latex] (1,3.2) node [left,align=center] {Связанные\\ электроны} to[out={0},in={90}](2-0.1,2+0.6);
+\draw[-latex] (1,3.2)  to[out={0},in={90}](2+0.1,2+0.6);
+
+\draw[-latex] (3,-1.2) node [left,align=center] {Свободные\\ электроны} to[out={0},in={0}]($(FF2)+(0.06,0)$);
+
+\begin{scope}[xshift=4cm]
+    \draw[very thick] (0,0) node[left] {$1$} -- ++(2,0) node[right] {$W_c$};
+    \draw[very thick] (0,2) node[left] {$2$} -- ++(2,0) node[right] {$W_v$};
+    \foreach \dy in {0.1,0.2,...,0.6}{
+        \draw[] (0,2+\dy) -- ++(2,0);
+        \draw[] (0,0-\dy) -- ++(2,0);
+    }
+
+    \draw[-latex] (0.25,-0.3) -- node[sloped,above] {Генерация} (0.25,2.3);
+    \draw[latex-] (2-0.25,-0.3) -- node[sloped,above] {Рекомбинация} (2-0.25,2.3);
+
+    \draw (1,2.6) node[above=0.2em,align=center] {Разрешенные состояния \\ в зоне проводимости};
+    \draw (1,-0.6) node[below=0.2em,align=center] {Разрешенные состояния \\ в валентной зоне};
+
+    \draw (1,-1.75) node {б)};
+\end{scope}
+    \draw (1,-1.75) node {а)};
+\end{tikzpicture}
+\end{document}

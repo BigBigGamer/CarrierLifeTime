@@ -1,0 +1,207 @@
+\documentclass{standalone}
+\usepackage{pgfplots}
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage[english, russian]{babel}
+\pgfplotsset{compat=newest}
+\usetikzlibrary{decorations.markings}
+\tikzset{->-/.style={decoration={
+  markings,
+  mark=at position #1 with {\arrow{stealth}}},postaction={decorate}}}
+  \tikzset{-<-/.style={decoration={
+  markings,
+  mark=at position #1 with {\arrow{<}}},postaction={decorate}}}
+\begin{document}
+\begin{tikzpicture}
+  \begin{axis}[
+      % domain = 0:2,
+      scale=1.1,
+      % width=5cm,
+      % height=7cm,
+      xmin=0,xmax=8,ymin=10,ymax=10^6,
+      ymode=log,
+      % xtick=\empty,
+      % ytick=\empty,
+      % xlabel={$\frac{1}{E}, 10^{-6}\,\frac{\text{см}}{\text{В}}$},
+      ylabel={Коэффициент ударной ионизации, см$^{-1}$},
+ grid=major, % м.б. еще both - и там и там
+  grid style={black!20},
+      % title={а)},
+% extra y ticks={1,2,3,4,5,6,7,8}, % положение дополнительных тиков
+% log ticks with fixed point,
+% extra x tick style={
+%   log identify minor tick positions=false,
+%   tick label style={scale=0.8},
+%   },
+% extra y tick style={
+%   log identify minor tick positions=false,
+%   tick label style={scale=0.8},
+%   },
+% extra xtick labels style={/pgf/number format/1000 sep=\,},
+% extra x ticks={0.6,0.8,1,2,3,4,5,6,7,8,9,10}, % положение дополнительных тиков
+% extra y tick labels={ % их подписи
+%     {$10^0$},{$10^1$},{$10^2$},{$10^3$},{$10^4$},{$10^5$},
+%     {$10^6$},{$10^7$},
+%     % {$\Gamma$},
+%     % {$\mathrm{X}$}
+% },    
+      % colorbar as palette,
+      % colorbar style={
+      %   grid=major,
+      %   grid style={black},
+      %   ytick style={draw=none},
+      % },
+      enlargelimits = false,
+      % axis on top,
+    ]
+
+    % Colored background
+    % \addplot graphics[xmin = 0, xmax = 2, ymin = 0, ymax = 1] {myplot.png};
+    % Contour lines
+
+\addplot[thick,smooth] table[col sep=tab]{
+8.92588797814208e-001	7.82040359464740e+004
+2.41845969945355e+000	1.57730858339097e+002
+} node[pos=0.8] (a1) {};
+
+\addplot[thick,smooth] table[col sep=tab]{
+1.22037226775956e+000	8.05842187761482e+004
+2.18024248633880e+000	3.35769826805922e+003
+} node[pos=0.4] (a2) {};
+
+\addplot[thick,smooth,densely dashed] table[col sep=tab]{
+1.18673155737705e+000	1.08757278975491e+005
+2.17640027322404e+000	1.29413375968796e+004
+} node[pos=1] (a3) {};
+
+\addplot[thick,smooth] table[col sep=tab]{
+1.91128756830601e+000	3.48070058842841e+004
+2.14173497267760e+000	2.50286543117461e+004
+2.37286543715847e+000	1.41592961920878e+004
+2.60587431693989e+000	4.14178451436440e+003
+2.70850409836066e+000	9.25008733860994e+002
+} node[pos=1] (a4) {};
+\addplot[thick,smooth] table[col sep=tab]{
+1.91128756830601e+000	3.48070058842841e+004
+2.37278005464481e+000	1.45902421563056e+004
+2.73599726775956e+000	5.93522927229699e+003
+3.09998292349727e+000	1.84342299240911e+003
+3.23326502732240e+000	8.71172517904658e+002
+} node[pos=1] (a5) {};
+
+
+\addplot[thick,smooth,dashed] table[col sep=tab]{
+1.94339139344262e+000	4.42418555384792e+004
+3.42674180327869e+000	2.72204833936368e+003
+} node[pos=1] (a6) {};
+
+\addplot[thick,smooth,dashed] table[col sep=tab]{
+3.88183060109290e+000	1.08107087359704e+004
+5.59682377049180e+000	3.14337238375104e+002
+} node[pos=1] (a7) {};
+\addplot[thick,smooth] table[col sep=tab]{
+4.01127049180328e+000	1.96911387938275e+004
+5.52809084699454e+000	9.53161883234787e+002
+} node[pos=1] (a8) {};
+\addplot[thick,smooth,dashed] table[col sep=tab]{
+3.94885587431694e+000	6.49381631576211e+003
+6.64301571038251e+000	8.97687132447314e+002
+} node[pos=1] (a9) {};
+\addplot[thick,smooth] table[col sep=tab]{
+3.91461748633880e+000	1.08107087359704e+004
+6.80455942622951e+000	2.07830045807904e+003
+} node[pos=1] (a10) {};
+
+% \draw[,purple] (6,	7.12492776213696e+002) node[below,align=center] (Si-label) {Si\\[-0.3em](1.12 эВ)};
+
+% \draw[,blue] (7,	7e+004) node[below,align=center] (Ge-label) {Ge\\[-0.3em](0.66 эВ)};
+
+% \draw[->,purple] (Si-label) -- (Si);
+% \draw[->,purple] (Si-label) -- (Si');
+
+%         \addplot[thick,smooth,blue] table[col sep=tab]{
+% 2.82292240559873e+000	1.20845513182135e+005
+% 8.09934116786954e+000	9.49498112525952e+001
+%         } node (Ge) [pos=0.5] {};
+
+%         \addplot[thick,smooth,densely densely dashed,blue] table[col sep=tab]{
+% 2.82351671056916e+000	1.58190813137129e+005
+% 8.10442577706096e+000	9.50763623970002e+002
+%         } node (Ge') [pos=0.7] {};
+
+
+% \draw[->,blue] (Ge-label) -- (Ge);
+% \draw[->,blue] (Ge-label) -- (Ge');
+%       \addplot[thick,smooth,densely densely dashed] table[col sep=tab]{
+% -100	-100
+% -1000	-1000
+%         };
+
+
+% \addlegendentry{Электроны};
+
+%       \addplot[thick,smooth,solid] table[col sep=tab]{
+% -100	-100
+% -1000	-1000
+%         };
+% \addlegendentry{Дырки};
+        % \addplot[thick,smooth,densely densely dashed,y filter/.code={\pgfmathparse{#1*7/6}\pgfmathresult}] table[col sep=tab]{data/data2.tsv} node [pos=0.74] (a') {};
+        
+        % \addplot[thick,blue, smooth,y filter/.code={\pgfmathparse{#1*7/6}\pgfmathresult}] table[col sep=tab]{data/data3.tsv} node [pos=0.7] (b) {};
+        % \addplot[thick,blue, smooth,densely densely dashed,y filter/.code={\pgfmathparse{#1*7/6}\pgfmathresult}] table[col sep=tab]{data/data4.tsv} node [pos=0.95] (b') {};
+        
+        % \addplot[thick,purple,smooth,y filter/.code={\pgfmathparse{#1*7/6}\pgfmathresult}] table[col sep=tab]{data/data5.tsv} node [pos=0.56] (c) {};
+        % \addplot[thick,purple,smooth,densely densely dashed,y filter/.code={\pgfmathparse{#1*7/6}\pgfmathresult}] table[col sep=tab]{data/data6.tsv} node [pos=0.9,right=-0.15em] (c') {};
+
+        % \draw[black] (0.8,6.5) node (Ge) {Ge};
+        % \draw[purple] (1.14,4.5) node (GaAs) {GaAs};
+        % \draw[blue] (3.5,5.5) node (Si) {Si};
+        % \draw[->] (Ge) -- (a);
+        % \draw[->] (Ge) -- (a');
+
+        % \draw[->, purple] (GaAs) -- (c);
+        % \draw[->, purple] (GaAs) -- (c');
+
+        % \draw[->, blue] (Si) -- (b);
+        % \draw[->, blue] (Si) -- (b');
+        % \addplot[thick,smooth] table[col sep=tab]{data/data11.tsv} node[pos=0.5] {};
+        % \addplot[thick,smooth] table[col sep=tab]{data/2.tsv} node[pos=0.5] {};
+
+        % \addplot[domain=0:1, samples=300]{-56.11*x^2 + 51.71*x + (-13.23)};
+        % % \addplot[smooth] table[col sep=tab]{data/3.tsv} node[pos=0.5] {};
+        % \addplot[smooth,thick,yshift=0.5pt] table[col sep=tab]{data/4.tsv} node[pos=0.5] {};
+        % \addplot[smooth,yshift=0.2pt, xshift=0.2pt] table[col sep=tab]{data/5.tsv} node[pos=0.5] {};
+        % % \addplot[mark=none,postaction={decorate}] table[col sep=comma] {myplot.csv};
+
+        % \draw[densely densely densely dashed,latex-] (0.414,-1.388) -- (0.414,2.486);
+        % \draw[densely densely densely dashed,-latex] (0.523,-1.546) -- (0.523,2.517);
+
+        % \draw[-latex] (0.464388,-1.30662) -- (0.918113,  0.0374667);
+        % \draw[-latex] (0.998855,  0.0247853) -- (0.540914,  -1.64781);
+
+        % % \addplot3[blue,
+        %     quiver={
+        %      u={-sin(pi*x/2*180/pi)*cos(pi*y*180/pi)},
+        %      v={-cos(pi*x/2*180/pi)*sin(pi*y*180/pi)},
+        %      scale arrows=0.1,
+        %     },
+        %     densely densely densely dashed,
+        %     -stealth,samples=15]
+        %         {0};
+
+                % \draw[fill=white, draw=none] (0.9,0.5) rectangle (1.1,0.6);
+    % \draw[densely densely dashed] (0.1,0.1) to[out=90-19, in=-90+19] (0.1,0.9);
+    % \draw[densely densely dashed] (0.3,0.1) to[out=90-32, in=-90+32] (0.3,0.9);
+
+    % \draw[densely densely dashed] (0.1,0.1) to[out=90-19, in=-90+19] (0.1,0.9);
+    % \draw[densely densely dashed] (0.3,0.1) to[out=90-32, in=-90+32] (0.3,0.9);      
+% \draw[densely densely dashed] (0.20,0.90) .. controls (0.50,0.75) and (0.50,0.25) .. (0.20,0.10);
+% \draw[densely densely dashed] (1.80,0.90) .. controls (1.55,0.75) and (1.55,0.25) .. (1.80,0.10);
+% \draw[densely densely dashed] (1.70,0.05) .. controls (1.20,0.25) and (0.80,0.25) .. (0.30,0.05);
+% \draw[densely densely dashed] (0.30,0.95) .. controls (0.80,0.75) and (1.20,0.75) .. (1.70,0.95);
+% \draw[densely densely dashed] (0.15,0.90) .. controls (0.30,0.69) and (0.30,0.31) .. (0.15,0.10);
+% \draw[densely densely dashed] (1.85,0.90) .. controls (1.70,0.69) and (1.70,0.31) .. (1.85,0.10);
+  \end{axis}
+\end{tikzpicture}
+\end{document}
